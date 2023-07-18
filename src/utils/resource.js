@@ -53,3 +53,24 @@ export async function handleLogin(username, password, navigate) {
 		console.error(err);
 	}
 }
+
+export async function getTasks(date) {
+    try {
+        const request = await fetch("http://localhost:8080/", {
+            method: "GET",
+            headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+        });
+        const data = await request.json();
+        if (date.error_message) {
+            toast.error(data.error_message);
+        } else {
+            toast.success(data.message);
+            return data.body;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
